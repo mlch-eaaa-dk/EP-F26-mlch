@@ -6,7 +6,7 @@ import model.Fag;
 
 import java.util.ArrayList;
 
-public abstract class Controller {
+public class Controller {
 
     // TODO opret metoder
 

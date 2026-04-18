@@ -6,7 +6,7 @@ import model.Fag;
 
 import java.util.ArrayList;
 
-public abstract class Controller {
+public class Controller {
 
     // TODO opret metoder
 
@@ -14,6 +14,7 @@ public abstract class Controller {
 
     // brugt i GUI
     public static ArrayList<Fag> getAlleFag() {
+        // TODO
         return null;
     }
 
