@@ -38,7 +38,12 @@ public class Studerende {
 
     // S3
     public int antalFraværsLektioner() {
-        // TODO
-        return 0;
+        int antal = 0;
+        for (Deltagelse deltagelse : deltagelser) {
+            if (deltagelse.erRegistreretFraværende()) {
+                antal++;
+            }
+        }
+        return antal;
     }
 }

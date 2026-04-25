@@ -13,6 +13,7 @@ public class Deltagelse {
     public Deltagelse(Lektion lektion, Studerende studerende) {
         this.registreret = false;
         this.status = DeltagerStatus.TILSTEDE;
+
         this.lektion = lektion; // linker Deltagelse --> Lektion
         this.studerende = studerende; // linker Deltagelse --> Studerende
     }
@@ -45,8 +46,7 @@ public class Deltagelse {
 
     // S2
     public boolean erRegistreretFraværende() {
-        // TODO
-        return false;
+        return registreret && status != DeltagerStatus.TILSTEDE;
     }
 
     //-----------------------------------------------------

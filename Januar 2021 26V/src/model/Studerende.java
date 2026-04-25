@@ -15,7 +15,7 @@ public class Studerende {
     }
 
     public String getNavn() {
-        return navn;
+        return this.navn;
     }
 
     public String getEmail() {
@@ -30,19 +30,31 @@ public class Studerende {
 
     public void addDeltagelse(Deltagelse deltagelse) {
         if (!deltagelser.contains(deltagelse)) {
-            deltagelser.add(deltagelse);
-            deltagelse.setStuderende(this);
+            deltagelser.add(deltagelse); // linker Studerende --> deltagelse
+            deltagelse.setStuderende(this); // linker Deltagelse --> Studerende
         }
     }
 
     // removeDeltagelse() ikke nødvendig
 
+    public void removeDeltagelse(Deltagelse deltagelse) {
+        if (deltagelser.contains(deltagelse)) {
+            deltagelser.remove(deltagelse); // af-linker Studerende --> Deltagelse
+            deltagelse.setStuderende(null); // af-linker Deltagelse --> Studerende
+        }
+    }
+
     //-----------------------------------------------------
 
     // S3
     public int antalFraværsLektioner() {
-        // TODO
-        return 0;
+        int antal = 0;
+        for (Deltagelse deltagelse : deltagelser) {
+            if (deltagelse.erRegistreretFraværende()) {
+                antal++;
+            }
+        }
+        return antal;
     }
 
 }

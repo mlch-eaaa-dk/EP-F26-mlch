@@ -5,18 +5,20 @@ public class Deltagelse {
     private DeltagerStatus status;
 
     // link Deltagelse --> 1 Lektion
-    private Lektion lektion;
+    private final Lektion lektion;
 
     // link Deltagelse --> 1 Studerende
     private Studerende studerende;
 
-    Deltagelse(Studerende studerende, Lektion lektion) { // OBS: package visible
+    Deltagelse(Lektion lektion, Studerende studerende) { // OBS: package visible
         this.registreret = false;
         this.status = DeltagerStatus.TILSTEDE;
+
+        this.lektion = lektion; // linker Deltagelse --> Lektion
         this.setStuderende(studerende); // linker Deltagelse --- Studerende begge veje
         // Alternativ til linjen herover:
         // studerende.addDeltagelse(this); // linker Studerende --- Deltagelse begge veje
-        this.lektion = lektion; // linker Deltagelse --> Lektion
+
         // Bemærk: Lektion.createDeltagelse() er eneste metode, der bruger denne konstruktor.
         // Bemærk: Lektion.createDeltagelse() linker Lektion --> Deltagelse
     }
@@ -43,19 +45,23 @@ public class Deltagelse {
 
     public void setStuderende(Studerende studerende) {
         if (this.studerende != studerende) {
+            Studerende oldStuderende = this.studerende;
+            if (oldStuderende != null) {
+                oldStuderende.removeDeltagelse(this); // af-linker Studerende --- Deltagelse begge veje
+            }
             this.studerende = studerende; // linker Deltagelse --> Studerende
             if (studerende != null) {
                 studerende.addDeltagelse(this); // linker Studerende --> Deltagelse
             }
         }
     }
+    // Bemærk: setStuderende(null) nedlægges forbindelsen mellem Deltagelse og Studerende
 
     //-----------------------------------------------------
 
     // S2
     public boolean erRegistreretFraværende() {
-        // TODO
-        return false;
+         return registreret  && status != DeltagerStatus.TILSTEDE;
     }
 
     //-----------------------------------------------------

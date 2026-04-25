@@ -36,8 +36,9 @@ public class Lektion {
         return new ArrayList<>(deltagelser);
     }
 
-    public Deltagelse opretDeltagelse(Studerende studerende, Lektion lektion) {
-        Deltagelse deltagelse = new Deltagelse(studerende, this); // linker Deltagelse --> Lektion
+    public Deltagelse opretDeltagelse(Studerende studerende) {
+        Deltagelse deltagelse = new Deltagelse(this, studerende);
+        // linjen herover linker Deltagelse --> Lektion og Deltagelse --- Studerende begge veje
         deltagelser.add(deltagelse); // linker Lektion --> Deltagelse
         return deltagelse;
     }
@@ -45,6 +46,12 @@ public class Lektion {
     // ingen addDeltagelse() i komposition
 
     // removeDeltagelse() ikke nødvendig
+
+    public void removeDeltagelse(Deltagelse deltagelse) {
+        deltagelser.remove(deltagelse);
+        // linket Deltagelse --> Lektion nedlægges ikke, da deltagelsen
+        // skal slettes fra applikationen, hvis deltagelsen removes fra lektionen
+    }
 
     //-----------------------------------------------------
 

@@ -31,18 +31,34 @@ public class Fag {
 
     public void addLektion(Lektion lektion) {
         if (!lektioner.contains(lektion)) {
-            lektioner.add(lektion); // linker Fag --> Lektio
+            lektioner.add(lektion); // linker Fag --> Lektion
         }
     }
 
     // removeLektion() ikke nødvendig
 
+    public void removeLektion(Lektion lektion) {
+        if (lektioner.contains(lektion)) {
+            lektioner.remove(lektion);
+        }
+    }
+
     //-----------------------------------------------------
 
     // S4
     public ArrayList<Studerende> sygdomPåDato(LocalDate dato) {
-        // TODO
-        return null;
+        ArrayList<Studerende> sygePåDato = new ArrayList<>();
+        for (Lektion lektion : lektioner) {
+            if (lektion.getDato().equals(dato)) {
+                for (Deltagelse deltagelse : lektion.getDeltagelser()) {
+                    Studerende studerende = deltagelse.getStuderende();
+                    if (deltagelse.getStatus() == DeltagerStatus.SYG && !sygePåDato.contains(studerende)) {
+                        sygePåDato.add(studerende);
+                    }
+                }
+            }
+        }
+        return sygePåDato;
     }
 
     //-----------------------------------------------------
